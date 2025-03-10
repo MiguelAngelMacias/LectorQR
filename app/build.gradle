@@ -41,4 +41,5 @@ dependencies {
     implementation libs.face.detection
     // Text features
     implementation libs.play.services.mlkit.text.recognition
+    implementation libs.barcode.scanning
 }

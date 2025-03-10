@@ -63,10 +63,11 @@
 
     <Button
         android:id="@+id/btText"
-        android:text="OCR"
+        android:text="QR"
         android:layout_margin="10dp"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:onClick="QRfx"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btFace"
         app:layout_constraintBottom_toBottomOf="parent"/>

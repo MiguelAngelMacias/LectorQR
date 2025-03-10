@@ -1,5 +1,6 @@
 [versions]
-agp = "8.8.0"
+agp = "8.8.2"
+barcodeScanning = "17.3.0"
 faceDetection = "16.1.7"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -11,6 +12,7 @@ constraintlayout = "2.2.1"
 playServicesMlkitTextRecognition = "19.0.1"
 
 [libraries]
+barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
 face-detection = { module = "com.google.mlkit:face-detection", version.ref = "faceDetection" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

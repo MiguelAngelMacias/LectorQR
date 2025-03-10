@@ -23,6 +23,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceDetection;
@@ -61,11 +65,28 @@ public class MainActivity extends AppCompatActivity
             requestPermissions(new String[]{Manifest.permission.CAMERA},100);
     }
 
-    public void OCRfx(View v) {
+    public void QRfx(View v) {
         InputImage image = InputImage.fromBitmap(mSelectedImage, 0);
-        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
-        recognizer.process(image)
-                .addOnSuccessListener(this)
+        BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+                .build();
+        BarcodeScanner scanner = BarcodeScanning.getClient(options);
+        scanner.process(image)
+                .addOnSuccessListener(barcodes -> {
+                    String resultados = "";
+                    if (barcodes.size() > 0) {
+                        for (Barcode barcode : barcodes) {
+                            if (barcode.getValueType() == Barcode.TYPE_URL) {
+                                resultados = resultados + barcode.getUrl().getUrl() + "\n";
+                            } else {
+                                resultados = resultados + barcode.getRawValue() + "\n";
+                            }
+                        }
+                    } else {
+                        resultados = "No se detectaron códigos QR";
+                    }
+                    txtResults.setText(resultados);
+                })
                 .addOnFailureListener(this);
     }
 
